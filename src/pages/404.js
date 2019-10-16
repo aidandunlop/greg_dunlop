@@ -1,34 +1,36 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import styled from 'styled-components'
-import Helmet from 'react-helmet'
-import PageTitle from '../components/PageTitle'
-import Container from '../components/Container'
-import Layout from '../components/Layout'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Text = styled.p`
-  text-align: center;
-  line-height: 1.6;
-  a {
-    color: #121212;
-  }
-`
+import SEO from '../components/seo';
 
-const NotFoundPage = () => (
-  <Layout>
-    <Helmet>
-      <title>404 - Page Not Found</title>
-      <meta name="description" content="Page not found" />
-    </Helmet>
+const NotFound = () => {
 
-    <Container>
-      <PageTitle>Page Not Found</PageTitle>
-      <Text>
-        Please return <Link to="/">home</Link> or use the menu to navigate to a
-        different page.
-      </Text>
-    </Container>
-  </Layout>
-)
+  return (
+    <>
+      <SEO />
+      <div>
+        <h1>Uh oh, this page does not exist! </h1>
+      </div>
+    </>
+  );
+};
 
-export default NotFoundPage
+NotFound.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string,
+      }),
+    }),
+    contentfulEssay: PropTypes.shape({
+      author: PropTypes.string,
+      content: PropTypes.shape({
+        json: PropTypes.object,
+      }),
+      slug: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
+export default NotFound;

@@ -19,6 +19,7 @@ try {
 
 module.exports = {
   siteMetadata: {
+    siteTitle: config.siteTitle,
     siteUrl: config.siteUrl,
     rssMetadata: {
       site_url: config.siteUrl,
@@ -160,6 +161,17 @@ module.exports = {
       resolve: 'gatsby-plugin-nprogress',
       options: {
         color: config.themeColor,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Work Sans`,
+            // subsets: [`sans-serif`],
+          },
+        ],
       },
     },
     'gatsby-plugin-netlify',

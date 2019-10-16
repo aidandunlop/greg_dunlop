@@ -1,28 +1,56 @@
+/* eslint-disable react/display-name */
 import React from 'react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import config from '../utils/siteConfig'
-import Layout from '../components/Layout'
-import Container from '../components/Container'
-import PageTitle from '../components/PageTitle'
-import PageBody from '../components/PageBody'
-import SEO from '../components/SEO'
+import SEO from '../components/seo'
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
+import { BLOCKS, INLINES } from '@contentful/rich-text-types'
+import Layout from '../components/layout'
+import hyperlinkRendering from '../components/hyperlink'
+import styled from 'styled-components'
 
+const StyledPage = styled.div`
+  padding: 0 10px;
+  font-size: 18px;
+  
+  @media only screen and (min-width: ${props => props.theme.sizes.tabletMin}) {
+    padding: 0 100px;
+  }
+
+  a {
+    color: ${props => props.theme.colors.secondary}
+  }
+`
 const PageTemplate = ({ data }) => {
-  const { title, slug, body } = data.contentfulPage
-  const postNode = data.contentfulPage
+  const { title, slug, content, showHeader } = data.contentfulPage
 
+  const options = {
+    renderNode: {
+      [INLINES.HYPERLINK]: hyperlinkRendering,
+      [INLINES.ASSET_HYPERLINK]: node => (
+        <img
+          alt={node.data.target.fields.description['en-US']} // get safely
+          src={node.data.target.fields.file['en-US'].url}
+          style={{ width: '50vw', margin: '0 auto' }}
+        />
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: node => (
+        console.log(node) ||
+        <img
+          alt={node.data.target.fields.description['en-US']}
+          src={node.data.target.fields.file['en-US'].url}
+          style={{ width: '50vw', margin: '0 auto' }}
+        />
+      ),
+    },
+  }
   return (
-    <Layout>
-      <Helmet>
-        <title>{`${title} - ${config.siteTitle}`}</title>
-      </Helmet>
-      <SEO pagePath={slug} postNode={postNode} pageSEO />
-
-      <Container>
-        <PageTitle>{title}</PageTitle>
-        <PageBody body={body} />
-      </Container>
+    <Layout showHeader={showHeader}>
+      <SEO title={title} pathname={slug} />
+      <Helmet title={title} />
+      <StyledPage>
+        {documentToReactComponents(content.json, options)}
+      </StyledPage>
     </Layout>
   )
 }
@@ -32,16 +60,9 @@ export const query = graphql`
     contentfulPage(slug: { eq: $slug }) {
       title
       slug
-      metaDescription {
-        internal {
-          content
-        }
-      }
-      body {
-        childMarkdownRemark {
-          html
-          excerpt(pruneLength: 320)
-        }
+      showHeader
+      content {
+        json
       }
     }
   }

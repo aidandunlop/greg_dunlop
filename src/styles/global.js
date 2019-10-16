@@ -9,8 +9,6 @@ body {
 html, body {
   height: 100%; 
 }
-
-
 `;
 
 export default GlobalStyle;

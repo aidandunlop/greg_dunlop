@@ -26,7 +26,7 @@ const Home = ({ data }) => {
   const {
     allContentfulAsset: { edges },
   } = data;
-  console.log(data);
+
   const settings = {
     // infinite: true,
     speed: 1000,
@@ -56,9 +56,10 @@ const Home = ({ data }) => {
       {edges ? (
         <StyledContainer>
           <Slider {...settings}>
-            {edges.map(item => (
-              <Img key="i" fluid={item.node.fluid} />
-            ))}
+            {edges.map(
+              item =>
+                console.log(item) || <Img key="i" fluid={item.node.fluid} />
+            )}
           </Slider>
         </StyledContainer>
       ) : (

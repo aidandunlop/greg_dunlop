@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Helmet from 'react-helmet';
 import favicon from '../images/favicon.ico';
 import GlobalStyle from '../styles/global';

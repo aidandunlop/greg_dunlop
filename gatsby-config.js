@@ -1,19 +1,21 @@
-const config = require('./src/utils/siteConfig')
-let contentfulConfig
+const config = require('./src/utils/siteConfig');
+let contentfulConfig;
 
 try {
-  contentfulConfig = require('./.contentful')
+  contentfulConfig = require('./.contentful');
 } catch (e) {
   contentfulConfig = {
     production: {
       spaceId: process.env.SPACE_ID,
       accessToken: process.env.ACCESS_TOKEN,
     },
-  }
+  };
 } finally {
-  const { spaceId, accessToken } = contentfulConfig.production
+  const { spaceId, accessToken } = contentfulConfig.production;
   if (!spaceId || !accessToken) {
-    throw new Error('Contentful space ID and access token need to be provided.')
+    throw new Error(
+      'Contentful space ID and access token need to be provided.'
+    );
   }
 }
 
@@ -90,74 +92,6 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     {
-      resolve: 'gatsby-plugin-feed',
-      options: {
-        setup(ref) {
-          const ret = ref.query.site.siteMetadata.rssMetadata
-          ret.allMarkdownRemark = ref.query.allMarkdownRemark
-          ret.generator = 'GatsbyJS GCN Starter'
-          return ret
-        },
-        query: `
-    {
-      site {
-        siteMetadata {
-          rssMetadata {
-            site_url
-            feed_url
-            title
-            description
-            image_url
-            author
-            copyright
-          }
-        }
-      }
-    }
-  `,
-        feeds: [
-          {
-            serialize(ctx) {
-              const rssMetadata = ctx.query.site.siteMetadata.rssMetadata
-              return ctx.query.allContentfulPost.edges.map(edge => ({
-                date: edge.node.publishDate,
-                title: edge.node.title,
-                description: edge.node.body.childMarkdownRemark.excerpt,
-
-                url: rssMetadata.site_url + '/' + edge.node.slug,
-                guid: rssMetadata.site_url + '/' + edge.node.slug,
-                custom_elements: [
-                  {
-                    'content:encoded': edge.node.body.childMarkdownRemark.html,
-                  },
-                ],
-              }))
-            },
-            query: `
-              {
-            allContentfulPost(limit: 1000, sort: {fields: [publishDate], order: DESC}) {
-               edges {
-                 node {
-                   title
-                   slug
-                   publishDate(formatString: "MMMM DD, YYYY")
-                   body {
-                     childMarkdownRemark {
-                       html
-                       excerpt(pruneLength: 80)
-                     }
-                   }
-                 }
-               }
-             }
-           }
-      `,
-            output: '/rss.xml',
-          },
-        ],
-      },
-    },
-    {
       resolve: 'gatsby-plugin-nprogress',
       options: {
         color: config.themeColor,
@@ -176,4 +110,4 @@ module.exports = {
     },
     'gatsby-plugin-netlify',
   ],
-}
+};

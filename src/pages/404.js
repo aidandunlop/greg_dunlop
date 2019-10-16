@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import SEO from '../components/seo';
 
 const NotFound = () => {
-
   return (
     <>
       <SEO />

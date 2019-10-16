@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import favicon from '../images/favicon.ico';
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
-import config from '../utils/siteConfig';
+import config from '../utils/site-config';
 import Header from './header';
 
 const Footer = styled.footer`
@@ -35,7 +35,7 @@ const ContentContainer = styled.div`
 //     padding-bottom: 0;
 //   }
 // `}
-const Template = ({ children, showHeader = true }) => {
+const Layout = ({ children, showHeader = true }) => {
   return (
     <div className="siteRoot">
       <Helmet>
@@ -58,4 +58,4 @@ const Template = ({ children, showHeader = true }) => {
   );
 };
 
-export default Template;
+export default Layout;

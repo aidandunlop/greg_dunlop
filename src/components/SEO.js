@@ -1,45 +1,45 @@
-import React, { Component } from 'react'
-import Helmet from 'react-helmet'
-import config from '../utils/siteConfig'
+import React, { Component } from 'react';
+import Helmet from 'react-helmet';
+import config from '../utils/site-config';
 
 class SEO extends Component {
   render() {
-    const { postNode, pagePath, postSEO, pageSEO, customTitle } = this.props
-    let title
-    let description
-    let image
-    let imgWidth
-    let imgHeight
-    let pageUrl
+    const { postNode, pagePath, postSEO, pageSEO, customTitle } = this.props;
+    let title;
+    let description;
+    let image;
+    let imgWidth;
+    let imgHeight;
+    let pageUrl;
 
     // Set Default OpenGraph Parameters for Fallback
-    title = config.siteTitle
-    description = config.siteDescription
-    image = config.siteUrl + config.shareImage
-    imgWidth = config.shareImageWidth
-    imgHeight = config.shareImageHeight
-    pageUrl = config.siteUrl
+    title = config.siteTitle;
+    description = config.siteDescription;
+    image = config.siteUrl + config.shareImage;
+    imgWidth = config.shareImageWidth;
+    imgHeight = config.shareImageHeight;
+    pageUrl = config.siteUrl;
 
     if (customTitle) {
-      title = postNode.title
-      pageUrl = config.siteUrl + '/' + pagePath + '/'
+      title = postNode.title;
+      pageUrl = config.siteUrl + '/' + pagePath + '/';
     }
 
     // Replace with Page Parameters if post or page
     if (postSEO || pageSEO) {
-      title = postNode.title
+      title = postNode.title;
       description =
         postNode.metaDescription === null
           ? postNode.body.childMarkdownRemark.excerpt
-          : postNode.metaDescription.internal.content
+          : postNode.metaDescription.internal.content;
 
-      pageUrl = config.siteUrl + '/' + pagePath + '/'
+      pageUrl = config.siteUrl + '/' + pagePath + '/';
     }
     // Use Hero Image for OpenGraph
     if (postSEO) {
-      image = 'https:' + postNode.heroImage.ogimg.src
-      imgWidth = postNode.heroImage.ogimg.width
-      imgHeight = postNode.heroImage.ogimg.height
+      image = 'https:' + postNode.heroImage.ogimg.src;
+      imgWidth = postNode.heroImage.ogimg.width;
+      imgHeight = postNode.heroImage.ogimg.height;
     }
 
     // Default Website Schema
@@ -51,7 +51,7 @@ class SEO extends Component {
         name: config.siteTitle,
         alternateName: config.siteTitleAlt ? config.siteTitleAlt : '',
       },
-    ]
+    ];
 
     // Blog Post Schema
     if (postSEO) {
@@ -104,7 +104,7 @@ class SEO extends Component {
           datePublished: postNode.publishDateISO,
           mainEntityOfPage: pageUrl,
         }
-      )
+      );
     }
 
     // Page SEO Schema
@@ -114,7 +114,7 @@ class SEO extends Component {
         '@type': 'WebPage',
         url: pageUrl,
         name: title,
-      })
+      });
     }
 
     return (
@@ -148,8 +148,8 @@ class SEO extends Component {
         <meta name="twitter:image" content={image} />
         <meta name="twitter:description" content={description} />
       </Helmet>
-    )
+    );
   }
 }
 
-export default SEO
+export default SEO;

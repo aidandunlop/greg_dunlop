@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import config from '../utils/siteConfig';
+import config from '../utils/site-config';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Slider from 'react-slick';
@@ -53,7 +53,7 @@ const Home = ({ data }) => {
         />
       </Helmet>
       <SEO postNode={postNode} pagePath="Home" customTitle />
-      {edges && edges.length > 0 ? (
+      {edges ? (
         <StyledContainer>
           <Slider {...settings}>
             {edges.map(item => (

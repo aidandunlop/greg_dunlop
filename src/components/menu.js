@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const Hamburger = styled.div`
   cursor: pointer;
@@ -8,9 +8,9 @@ const Hamburger = styled.div`
   ${props => css`
     @media only screen and (min-width: ${props.theme.sizes.desktop}) {
       display: none;
-    }`
-  }
-`
+    }
+  `}
+`;
 // TODO: add bar background colour to theme
 const Bar = styled.div`
   width: 30px;
@@ -19,7 +19,7 @@ const Bar = styled.div`
   margin: 6px 0;
   transition: 0.4s;
   border-radius: 2px;
-`
+`;
 
 const FirstBar = styled(Bar)`
   ${props =>
@@ -27,26 +27,25 @@ const FirstBar = styled(Bar)`
     css`
       -webkit-transform: translate(0px, 11px) rotate(-45deg);
       transform: translate(0px, 11px) rotate(-45deg);
-      background-color: ${props.theme.colors.secondary}
+      background-color: ${props.theme.colors.secondary};
     `};
-`
+`;
 const SecondBar = styled(Bar)`
   ${props =>
     props.isOpen &&
     css`
       opacity: 0;
     `};
-`
+`;
 const ThirdBar = styled(Bar)`
   ${props =>
     props.isOpen &&
     css`
-    background-color: ${props.theme.colors.secondary};
-    -webkit-transform: translate(0px, -11px) rotate(45deg);
-    transform: translate(0px, -11px) rotate(45deg);
+      background-color: ${props.theme.colors.secondary};
+      -webkit-transform: translate(0px, -11px) rotate(45deg);
+      transform: translate(0px, -11px) rotate(45deg);
     `};
-`
-
+`;
 
 const Menu = ({ isOpen, onClick }) => (
   <>
@@ -56,6 +55,6 @@ const Menu = ({ isOpen, onClick }) => (
       <ThirdBar isOpen={isOpen} />
     </Hamburger>
   </>
-)
+);
 
-export default Menu
+export default Menu;

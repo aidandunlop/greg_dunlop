@@ -94,6 +94,7 @@ const Work = props => {
             // customSources={photos}
             slide={currentImage}
             disableLocalStorage
+            type="image"
           />
         </>
       ) : (

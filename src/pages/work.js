@@ -61,8 +61,8 @@ const Work = props => {
     allContentfulAsset: { edges },
   } = props.data;
 
-  const photos = props.data.allContentfulAsset.edges.map(
-    item => item.node.file.url
+  const photos = props.data.allContentfulAsset.edges.map(item =>
+    item.node.fluid.src.replace('&q=50', '&q=100')
   );
   // const photos = props.data.allContentfulAsset.edges.map(item => (
   //   <div>
@@ -90,73 +90,7 @@ const Work = props => {
           </ImagesContainer>
           <FsLightbox
             toggler={toggler}
-            sources={[
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-              'http://lorempixel.com/800/600/abstract',
-              'http://lorempixel.com/800/600/city',
-              'http://lorempixel.com/800/600/people',
-              'http://lorempixel.com/800/600/transport',
-              'http://lorempixel.com/800/600/animals',
-            ]}
+            sources={photos}
             // customSources={photos}
             slide={currentImage}
             disableLocalStorage

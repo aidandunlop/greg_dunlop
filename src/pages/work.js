@@ -61,15 +61,10 @@ const Work = props => {
     allContentfulAsset: { edges },
   } = props.data;
 
-  const photos = props.data.allContentfulAsset.edges.map(item =>
-    item.node.fluid.src.replace('&q=50', '&q=100')
+  const photos = props.data.allContentfulAsset.edges.map(
+    item => item.node.fluid.src
   );
-  // const photos = props.data.allContentfulAsset.edges.map(item => (
-  //   <div>
-  //     <Img fluid={item.node.fluid}></Img>
-  //   </div>
-  // ));
-  console.log(props.data);
+
   return (
     <Layout>
       {edges && edges.length > 0 ? (
@@ -91,7 +86,6 @@ const Work = props => {
           <FsLightbox
             toggler={toggler}
             sources={photos}
-            // customSources={photos}
             slide={currentImage}
             disableLocalStorage
             type="image"
@@ -119,9 +113,6 @@ export const pageQuery = graphql`
           fluid {
             aspectRatio
             ...GatsbyContentfulFluid
-          }
-          file {
-            url
           }
         }
       }

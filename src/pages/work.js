@@ -68,7 +68,7 @@ const Work = props => {
     <Layout>
       {edges && edges.length > 0 ? (
         <>
-          <ImagesContainer>
+          {/* <ImagesContainer>
             {edges.map((item, index) => {
               return (
                 <StyledImage
@@ -81,7 +81,8 @@ const Work = props => {
                 />
               );
             })}
-          </ImagesContainer>
+          </ImagesContainer> */}
+          <button onClick={() => setToggler(!toggler)}>click</button>
           <FsLightbox toggler={toggler} sources={photos} slide={currentImage} />
         </>
       ) : (

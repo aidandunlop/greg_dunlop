@@ -62,8 +62,9 @@ const Work = props => {
   } = props.data;
 
   const photos = props.data.allContentfulAsset.edges.map(
-    item => item.node.file.url
+    item => item.node.fluid.src
   );
+
   return (
     <Layout>
       {edges && edges.length > 0 ? (
@@ -82,7 +83,13 @@ const Work = props => {
               );
             })}
           </ImagesContainer>
-          <FsLightbox toggler={toggler} sources={photos} slide={currentImage} />
+          <FsLightbox
+            toggler={toggler}
+            sources={photos}
+            slide={currentImage}
+            disableLocalStorage
+            type="image"
+          />
         </>
       ) : (
         <Spinner name="double-bounce" color="red" />
@@ -106,9 +113,6 @@ export const pageQuery = graphql`
           fluid {
             aspectRatio
             ...GatsbyContentfulFluid
-          }
-          file {
-            url
           }
         }
       }

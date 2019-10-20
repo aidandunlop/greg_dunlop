@@ -53,7 +53,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images-contentful`,
             options: {
-              maxWidth: 650,
+              maxWidth: 1500,
               backgroundColor: 'white',
               linkImagesToOriginal: true,
             },
@@ -90,7 +90,6 @@ module.exports = {
         icon: `static${config.siteLogo}`,
       },
     },
-    'gatsby-plugin-offline',
     {
       resolve: 'gatsby-plugin-nprogress',
       options: {

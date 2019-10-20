@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Spinner from 'react-spinkit';
-// import Carousel, { ModalGateway, Modal } from 'react-images';
 import styled from 'styled-components';
 import Img from 'gatsby-image';
 import Layout from '../components/layout';
@@ -35,7 +34,7 @@ const ImagesContainer = styled.div`
     -webkit-column-count: 2;
     column-count: 2;
   }
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 600px) {
     -moz-column-count: 1;
     -webkit-column-count: 1;
     column-count: 1;

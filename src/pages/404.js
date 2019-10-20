@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SEO from '../components/seo';
+import Layout from '../components/layout';
 
 const NotFound = () => {
   return (
-    <>
+    <Layout>
       <SEO />
       <div>
-        <h1>Uh oh, this page does not exist! </h1>
+        <h1>Uh oh, this page does not exist! What does exist?</h1>
       </div>
-    </>
+    </Layout>
   );
 };
 

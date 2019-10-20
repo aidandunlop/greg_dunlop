@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import styled, { css } from 'styled-components'
+import React from 'react';
+import { Link } from 'gatsby';
+import styled, { css } from 'styled-components';
 
 const StyledNav = styled.div`
   width: 100%;
@@ -56,7 +56,7 @@ const StyledNav = styled.div`
           transition: all 1s ease-out;
           background-color: brown;
           overflow: hidden;
-          height: calc(100vh - #{${props.theme.sizes.headerHeight}});
+          height: calc(100vh - ${props.theme.sizes.headerHeight});
         `}
     }
     @media only screen and (min-width: ${props.theme.sizes.desktop}) {
@@ -74,9 +74,9 @@ const StyledNav = styled.div`
       }
     }
   `}
-`
+`;
 
-const activeClassName = 'nav-item-active'
+const activeClassName = 'nav-item-active';
 
 const StyledLink = styled(Link).attrs({
   activeClassName,
@@ -93,17 +93,17 @@ const StyledLink = styled(Link).attrs({
       }
     }
   `}
-`
+`;
 const Nav = ({ isOpen, onClick }) => (
   <StyledNav isOpen={isOpen}>
     <ul>
       <li>
-        <StyledLink to="/" onClick={onClick} >
+        <StyledLink to="/" onClick={onClick}>
           HOME
         </StyledLink>
       </li>
       <li>
-        <StyledLink to="/about" onClick={onClick} >
+        <StyledLink to="/about" onClick={onClick}>
           ABOUT
         </StyledLink>
       </li>
@@ -114,6 +114,6 @@ const Nav = ({ isOpen, onClick }) => (
       </li>
     </ul>
   </StyledNav>
-)
+);
 
-export default Nav
+export default Nav;

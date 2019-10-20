@@ -1,20 +1,20 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
-import Title from './title'
-import Menu from './menu'
-import Nav from './nav'
+import React from 'react';
+import styled, { css } from 'styled-components';
+import Title from './title';
+import Menu from './menu';
+import Nav from './nav';
 
 const StyledHeader = styled.header`
   background-color: white;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+
   align-items: flex-start;
   position: sticky;
   width: 100%;
-  min-height: 90px;
+  min-height: ${props => props.theme.sizes.headerHeight};
   top: 0;
-  z-index: 10;
+  z-index: 1;
 
   a {
     text-decoration: none;
@@ -25,41 +25,42 @@ const StyledHeader = styled.header`
     props.isOpen &&
     css`
       @media only screen and (max-width: ${props.theme.sizes.tablets}) {
-        height: calc(100vh - 90px);
+        height: calc(100vh - ${props.theme.sizes.headerHeight});
+        flex-wrap: wrap;
       }
     `}
   ${props => css`
     @media only screen and (min-width: ${props.theme.sizes.desktop}) {
       flex-direction: column;
-      min-height: 120px;
+      height: ${props.theme.sizes.desktopHeaderHeight};
       align-items: center;
     }
   `}
-`
+`;
 
 class Header extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       isOpen: false,
-    }
-    this.toggleMenu = this.toggleMenu.bind(this)
+    };
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   handleClickOutside = evt => {
     this.setState(prevState => ({
       isOpen: false,
-    }))
-  }
+    }));
+  };
 
   toggleMenu() {
     this.setState(prevState => ({
       isOpen: !prevState.isOpen,
-    }))
+    }));
   }
 
   render() {
-    const isOpen = this.state.isOpen
+    const isOpen = this.state.isOpen;
 
     return (
       <StyledHeader isOpen={isOpen}>
@@ -67,8 +68,8 @@ class Header extends React.Component {
         <Menu onClick={this.toggleMenu} isOpen={isOpen} />
         <Nav onClick={this.toggleMenu} isOpen={isOpen} />
       </StyledHeader>
-    )
+    );
   }
 }
 
-export default Header
+export default Header;

@@ -12,12 +12,13 @@ const theme = {
     mobiles: '425px',
     headerHeight: '90px',
     desktopHeaderHeight: '120px',
+    footerHeight: '20px',
   },
   responsive: {
     small: '35em',
     medium: '50em',
     large: '70em',
   },
-}
+};
 
-export default theme
+export default theme;

@@ -55,7 +55,7 @@ module.exports = {
             options: {
               maxWidth: 650,
               backgroundColor: 'white',
-              linkImagesToOriginal: false,
+              linkImagesToOriginal: true,
             },
           },
         ],

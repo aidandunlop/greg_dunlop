@@ -3,21 +3,31 @@ import Helmet from 'react-helmet';
 import config from '../utils/site-config';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import Slider from 'react-slick';
 import Spinner from 'react-spinkit';
 
 import { graphql } from 'gatsby';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import { Carousel } from 'react-responsive-carousel';
+
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const StyledContainer = styled.div`
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
 `;
-// width: 70vw;
-// height: 80vh;
+
+const ImageWrapper = styled.div`
+  ${props => css`
+    @media only screen and (min-width: ${props.theme.sizes.desktop}) {
+      height: 70vh;
+      width: calc(70vh * ${props.aspectRatio});
+    }
+  `}
+  margin: 0 auto;
+  background: white;
+`;
 
 const Home = ({ data }) => {
   const postNode = {
@@ -27,40 +37,35 @@ const Home = ({ data }) => {
     allContentfulAsset: { edges },
   } = data;
 
-  const settings = {
-    // infinite: true,
-    speed: 1000,
-    autoplay: true,
-    lazyLoad: true,
-    arrows: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   return (
     <Layout>
       <Helmet>
         <title>{`${config.siteTitle}`}</title>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
       </Helmet>
       <SEO postNode={postNode} pagePath="Home" customTitle />
       {edges ? (
         <StyledContainer>
-          <Slider {...settings}>
-            {edges.map(
-              item =>
-                console.log(item) || <Img key="i" fluid={item.node.fluid} />
-            )}
-          </Slider>
+          <Carousel
+            autoPlay
+            dynamicHeight
+            infiniteLoop
+            emulateTouch
+            stopOnHover={false}
+            showIndicators={false}
+            showArrows={false}
+            showThumbs={false}
+            showStatus={false}
+            interval={10000}
+          >
+            {edges.map(item => (
+              <ImageWrapper
+                key={item.node.title}
+                aspectRatio={item.node.fluid.aspectRatio}
+              >
+                <Img fluid={item.node.fluid} />
+              </ImageWrapper>
+            ))}
+          </Carousel>
         </StyledContainer>
       ) : (
         <Spinner name="double-bounce" color="red" />
@@ -71,11 +76,18 @@ const Home = ({ data }) => {
 
 export const pageQuery = graphql`
   query homeQuery {
-    allContentfulAsset {
+    allContentfulAsset(
+      filter: {
+        title: { ne: "greg-purusha" }
+        file: { contentType: { eq: "image/jpeg" } }
+      }
+      sort: { order: ASC, fields: [title] }
+    ) {
       edges {
         node {
           title
           fluid {
+            aspectRatio
             ...GatsbyContentfulFluid
           }
           file {

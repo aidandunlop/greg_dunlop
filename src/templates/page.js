@@ -20,7 +20,30 @@ const StyledPage = styled.div`
   a {
     color: ${props => props.theme.colors.secondary};
   }
+
+  h1 {
+    text-align: center;
+  }
 `;
+const StyledImg = styled.img`
+  width: 50%;
+  max-width: 600px;
+  margin: 0px auto;
+`;
+const ImageWrapper = styled.div`
+  text-align: center;
+`;
+
+const ImageRenderer = ({ node }) =>
+  node.data.target.fields ? (
+    <ImageWrapper>
+      <StyledImg
+        alt={node.data.target.fields.description['en-US']}
+        src={node.data.target.fields.file['en-US'].url}
+      />
+    </ImageWrapper>
+  ) : null;
+
 const PageTemplate = ({ data }) => {
   const { title, slug, content, showHeader } = data.contentfulPage;
 
@@ -28,20 +51,11 @@ const PageTemplate = ({ data }) => {
     renderNode: {
       [INLINES.HYPERLINK]: hyperlinkRendering,
       [INLINES.ASSET_HYPERLINK]: node => (
-        <img
-          alt={node.data.target.fields.description['en-US']} // get safely
-          src={node.data.target.fields.file['en-US'].url}
-          style={{ width: '50vw', margin: '0 auto' }}
-        />
+        <a href={node.data.target.fields.file['en-US'].url}>
+          {node.data.target.fields.title['en-US']}
+        </a>
       ),
-      [BLOCKS.EMBEDDED_ASSET]: node =>
-        console.log(node) || (
-          <img
-            alt={node.data.target.fields.description['en-US']}
-            src={node.data.target.fields.file['en-US'].url}
-            style={{ width: '50vw', margin: '0 auto' }}
-          />
-        ),
+      [BLOCKS.EMBEDDED_ASSET]: node => <ImageRenderer node={node} />,
     },
   };
   return (

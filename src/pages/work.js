@@ -64,6 +64,12 @@ const Work = props => {
   const photos = props.data.allContentfulAsset.edges.map(
     item => item.node.file.url
   );
+  // const photos = props.data.allContentfulAsset.edges.map(item => (
+  //   <div>
+  //     <Img fluid={item.node.fluid}></Img>
+  //   </div>
+  // ));
+  console.log(props.data);
   return (
     <Layout>
       {edges && edges.length > 0 ? (
@@ -82,8 +88,13 @@ const Work = props => {
               );
             })}
           </ImagesContainer>
-          {/* <button onClick={() => setToggler(!toggler)}>click</button> */}
-          {/* <FsLightbox toggler={toggler} sources={photos} slide={currentImage} /> */}
+          <FsLightbox
+            toggler={toggler}
+            sources={photos}
+            // customSources={photos}
+            slide={currentImage}
+            disableLocalStorage
+          />
         </>
       ) : (
         <Spinner name="double-bounce" color="red" />

@@ -90,7 +90,6 @@ module.exports = {
         icon: `static${config.siteLogo}`,
       },
     },
-    'gatsby-plugin-offline',
     {
       resolve: 'gatsby-plugin-nprogress',
       options: {
